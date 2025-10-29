@@ -1,0 +1,35 @@
+body{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.forms{
+    width:500px;
+    margin: 250px auto;
+    border-radius: 10px;
+    padding: 10px 20px  30px;
+    font-size: 20px;
+    color:black;
+    background-color: skyblue;
+}
+.forms h3{
+    text-align: center;
+    color: black;
+}
+.textlabel{
+    display: block;
+}
+.inputdetails{
+    color:black;
+    text-align: justify;
+    padding-left: 100px;
+    border-radius: 200px;
+}
+.inputdetails DOB{
+    padding: top 100px; ;
+}
+.btn{
+    text-align: center;
+    font-size: medium;
+    text-align: center;
+}
+
+

@@ -1,38 +1,53 @@
-document.querySelector("form").addEventListener("submit", async function(event) {
-    event.preventDefault();
+// ✅ Register Page Script
 
-    const username = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("pwd").value;
-    const gender = document.querySelector('input[name="gender"]:checked')?.value;
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.querySelector("form");
+  const createBtn = document.getElementById("create_btn");
 
-    if (!username || !email || !password || !gender) {
-        alert("Please fill all fields!");
+  if (createBtn) {
+    createBtn.addEventListener("click", function (event) {
+      event.preventDefault();
+      window.location.href = "create.html";
+    });
+  }
+
+  if (form) {
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const username = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("pwd").value;
+      const gender = document.querySelector('input[name="gender"]:checked')?.value;
+
+      if (!username || !email || !password || !gender) {
+        alert("⚠️ Please fill all fields!");
         return;
-    }
+      }
 
-    const genderValue = gender.toLowerCase() === "male" ? "M" : "F";
+      const genderValue = gender.toLowerCase() === "male" ? "M" : "F";
+      const data = { username, email, password, gender: genderValue };
 
-    const data = { username, email, password, gender: genderValue };
-
-    try {
+      try {
         const response = await fetch("http://127.0.0.1:8000/login/register/", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
         });
 
         const result = await response.json();
 
         if (response.ok) {
-            alert("✅ Registration Successful!");
-            console.log("Server Response:", result);
-            document.querySelector("form").reset();
+          alert("✅ Registration Successful!");
+          console.log("Server Response:", result);
+          form.reset();
         } else {
-            alert("⚠️ Registration failed: " + JSON.stringify(result));
+          alert("❌ Registration Failed: " + JSON.stringify(result));
         }
-    } catch (error) {
-        alert("❌ Error connecting to server.");
+      } catch (error) {
+        alert("⚠️ Error connecting to backend.");
         console.error(error);
-    }
+      }
+    });
+  }
 });
